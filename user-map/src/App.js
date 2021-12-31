@@ -2,7 +2,7 @@ import Map from './component/map'
 import { useEffect,useState } from 'react';
 import "antd/dist/antd.css";
 import "./App.css"
-import { Row, Col, Layout,List, Avatar, Button, Skeleton,Typography} from 'antd';
+import { Row, Col, Layout,List, Avatar} from 'antd';
 import axios from 'axios'
 const { Header,Content } = Layout;
 
@@ -14,6 +14,7 @@ const fetchUsers =  async () => {
         return data
     } catch (err) {
         console.error(err);
+        return err
     }
 }
 
@@ -30,6 +31,17 @@ function App() {
     const users = await fetchUsers();
     setUserDataJSON(users)
   },[])
+
+  let locationFinder = (<div></div>)
+
+  if(user.firstName || user.lastName ){
+    locationFinder = (
+    <div>
+       <h3> {`${user.firstName} ${user.lastName}`} Location</h3> 
+       <Map latlong={user}/> 
+    </div>)
+  }
+  
   return (
     <>
     <Layout>
@@ -37,8 +49,9 @@ function App() {
     <Content>
       <Row>
         <Col span={12}>
+        <div style={{height: 800,overflow: 'auto'}}>
           <List
-            header={<div> <h3>Friend List </h3></div>}
+            header={<div> <h3>All Friends</h3></div>}
             itemLayout="horizontal"
             bordered
             dataSource={userDataJSON}
@@ -52,10 +65,10 @@ function App() {
               </List.Item>
             )}
           />
+          </div>
         </Col>
         <Col span={12}>
-           <h3> Friend Location: {user.firstName} </h3> 
-           <Map latlong={user}/> 
+          {locationFinder}
         </Col>
       </Row>
     </Content>

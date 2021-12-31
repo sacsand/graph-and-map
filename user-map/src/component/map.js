@@ -28,7 +28,7 @@ const Map = (props) => {
   const [mapConfig,setMapConfig] = useState(config)
 
   let mapBody = (
-    <div> <h3> No Location Data Found </h3> </div>
+    <div style={{ height: '100vh', width: '100%' }}> <h3> No Location Data Found </h3> </div>
   )
 
   if(latitude && longitude){
