@@ -1,22 +1,11 @@
 import Map from './component/map'
+import { fetchUsers } from './api/fetchUsers';
 import { useEffect,useState } from 'react';
 import "antd/dist/antd.css";
 import "./App.css"
 import { Row, Col, Layout,List, Avatar} from 'antd';
-import axios from 'axios'
 const { Header,Content } = Layout;
 
-
-
-const fetchUsers =  async () => {
-    try {
-        const {data} = await axios.get('https://api.json-generator.com/templates/Xp8zvwDP14dJ/data',{ headers: { Authorization: "Bearer v3srs6i1veetv3b2dolta9shrmttl72vnfzm220z" }});
-        return data
-    } catch (err) {
-        console.error(err);
-        return err
-    }
-}
 
 function App() {
 
@@ -28,7 +17,11 @@ function App() {
   }
 
   useEffect(async () => {
-    const users = await fetchUsers();
+    const { data:users,err} = await fetchUsers();
+    if(err){
+      alert(err)
+    }
+    
     setUserDataJSON(users)
   },[])
 
