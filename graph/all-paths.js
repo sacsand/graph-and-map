@@ -2,18 +2,19 @@ import { nodes,routes ,buildGraph } from "./common.js";
 
 
 // Main
-const findAllPath = (nodeA,nodeB) => {
+export const findallPossiblePath = (nodes,routes,startNode,stopNode) => {
      // build the graph
      const graph = buildGraph(nodes,routes)
      // find all path
-     return findPath(graph,nodeA,nodeB,new Set(),[],[])
+     return findPath(graph,startNode,stopNode,new Set(),[],[])
 };
  
-const findPath = (graph,src,dst,visited,currentPath,allPath) => {
+// Modified DFS
+const findPath = (graph,src,dst,visited,currentPath,allPossiblePath) => {
      currentPath.push(src)
      // if source is eq to destination return the 
      if(src === dst) {
-        allPath.push(currentPath.toString())
+        allPossiblePath.push(currentPath.toString())
         currentPath.pop()
         return 
      }
@@ -25,20 +26,16 @@ const findPath = (graph,src,dst,visited,currentPath,allPath) => {
 
      for(let neighbor of srcNodes ){
         if(!visited.has(neighbor)){
-             findPath(graph,neighbor,dst,visited,currentPath,allPath) === true
+             findPath(graph,neighbor,dst,visited,currentPath,allPossiblePath) === true
         }
      }
  
      visited.delete(src)
      currentPath.pop()
 
-     return allPath
+     return allPossiblePath
 }
 
-
-
- // Find
-console.log(findAllPath("A","H"))
  
  
  

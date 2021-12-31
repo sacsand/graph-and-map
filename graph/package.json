@@ -1,3 +1,17 @@
 {
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "jest": "^27.4.5"
+    },
+    "jest": {
+        "verbose": true,
+        "testEnvironment": "jest-environment-node",
+        "transform": {},
+        "transformIgnorePatterns": [
+            "node_modules/(?!@atlaskit)"
+        ]
+    },
+    "scripts": {
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    }
 }
