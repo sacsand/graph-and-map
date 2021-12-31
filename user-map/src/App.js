@@ -22,14 +22,12 @@ function App() {
   const [userDataJSON,setUserDataJSON] = useState([])
   const [user,setUser] = useState({})
 
-  const setCurrentUser = (latlong,firstName,lastName) =>{
-    setUser({firstName ,lastName,...latlong})
-    console.log("vv",user)
+  const setCurrentUser = (latlong,firstName,lastName,id) =>{
+    setUser({firstName ,lastName,id,...latlong})
   }
 
   useEffect(async () => {
     const users = await fetchUsers();
-    console.log(users)
     setUserDataJSON(users)
   },[])
   return (
@@ -45,18 +43,18 @@ function App() {
             bordered
             dataSource={userDataJSON}
             renderItem={({location,name,picture,email,_id}) => (
-              <List.Item key={_id} onClick={() => setCurrentUser(location,name.first,name.last)}> 
+              <List.Item className={_id === user.id?  "active" : "" } key={_id} onClick={() => setCurrentUser(location,name.first,name.last,_id)}> 
                 <List.Item.Meta
                   avatar={<Avatar src={picture} />}
-                  title={name.first}
-                  description={`email : ${email}`}
+                  title={`${name.first} ${name.last}`}
+                  description={`email : ${email}  `}
                 />
               </List.Item>
             )}
           />
         </Col>
         <Col span={12}>
-           <p> Friend: {user.firstName} </p> 
+           <h3> Friend Location: {user.firstName} </h3> 
            <Map latlong={user}/> 
         </Col>
       </Row>

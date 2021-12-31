@@ -12,7 +12,6 @@ const Marker = ({ text }) => (
 const Map = (props) => {
 
   const {latitude,longitude} = props.latlong
-  console.log(props)
 
   const config = {
     center: {
@@ -35,9 +34,8 @@ const Map = (props) => {
   if(latitude && longitude){
     mapBody = (
       <div style={{ height: '100vh', width: '100%' }}>
-        {mapConfig.center.lat}  -    {mapConfig.center.lng}
+        Lat : {mapConfig.center.lat}  -   Lng : {mapConfig.center.lng}
         <GoogleMapReact
-          // bootstrapURLKeys={{ key: "v3srs6i1veetv3b2dolta9shrmttl72vnfzm220z" }}
           center={mapConfig.center}
           defaultZoom={mapConfig.zoom}
         >
