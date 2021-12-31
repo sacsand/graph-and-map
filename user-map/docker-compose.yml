@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  usermap-prod:
+    container_name: usermap-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '1337:80'
